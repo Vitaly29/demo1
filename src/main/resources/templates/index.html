@@ -1,11 +1,41 @@
 <!DOCTYPE HTML>
-<html xmls:th="http://www.thymelef.org">
-   <head>
-      <meta charset="UTF-8" />
-      <title>Welcome</title>
-   </head>
-   <body>
-      <h1>Welcome</h1>
-      <h2 th:utext="${message}">..!..</h2>
-   </body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Welcome</title>
+</head>
+<body>
+<h2>Список телефонов</h2>
+<table border="1">
+    <tr th:each="phone : ${phones}">
+        <form action="/update" method="post">
+            <td th:text="${phone.id}"></td>
+            <td><input name="fio" type="text" th:value="${phone.fio}"></td>
+            <td><input name="num" type="text" th:value="${phone.num}"></td>
+            <td>
+                <input type="hidden" name="id" th:value="${phone.id}">
+                <input type="submit" value="Изменить">
+            </td>
+        </form>
+        <td>
+            <form action="/delete" method="post">
+                <input type="hidden" name="id" th:value="${phone.id}">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+    </tr>
+</table>
+<h2>Добавить запись</h2>
+<form action="/insert" method="post">
+    <table>
+        <tr>
+            <td><input type="text" name="fio" placeholder="ФИО"></td>
+            <td><input type="text" name="num" placeholder="Телефон"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Добавить запись"></td>
+        </tr>
+    </table>
+</form>
+</body>
 </html>
